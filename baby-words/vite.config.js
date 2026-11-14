@@ -34,6 +34,7 @@ function classicScriptAtEndOfBody() {
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: '/baby-words-demo/',
   plugins: [react(), viteSingleFile(), classicScriptAtEndOfBody()],
   build: {
     target: 'es2017',
