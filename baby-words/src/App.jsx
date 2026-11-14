@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import confetti from 'canvas-confetti'
-import { loadEntries, saveEntries, resetToSample, toDateKey } from './storage.js'
+import { loadEntries, saveEntries, resetToSample, toDateKey, newId } from './storage.js'
 
 const MILESTONES = [10, 25, 50, 100, 200, 500]
 const WEEKDAYS = ['日', '一', '二', '三', '四', '五', '六']
@@ -35,12 +35,16 @@ export default function App() {
   useEffect(() => saveEntries(entries), [entries])
 
   const addEntry = (entry) => {
-    const next = [...entries, { ...entry, id: crypto.randomUUID(), createdAt: Date.now() }]
+    const next = [...entries, { ...entry, id: newId(), createdAt: Date.now() }]
     setEntries(next)
     setTab('timeline')
     if (MILESTONES.includes(next.length)) {
       setMilestone(next.length)
-      celebrate()
+      try {
+        celebrate()
+      } catch {
+        // confetti is decorative; the milestone modal still shows
+      }
     }
   }
 

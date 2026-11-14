@@ -35,10 +35,42 @@ function seedEntries() {
   }))
 }
 
+// Private browsing, file:// viewers and in-app webviews may block or throw on localStorage.
+const memoryStore = {}
+
+function readRaw() {
+  try {
+    return window.localStorage.getItem(STORAGE_KEY)
+  } catch {
+    return memoryStore[STORAGE_KEY] ?? null
+  }
+}
+
+function writeRaw(value) {
+  memoryStore[STORAGE_KEY] = value
+  try {
+    window.localStorage.setItem(STORAGE_KEY, value)
+  } catch {
+    // keep the in-memory copy only
+  }
+}
+
+export function newId() {
+  try {
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID()
+  } catch {
+    // randomUUID is unavailable outside secure contexts
+  }
+  return `id-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`
+}
+
 export function loadEntries() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY)
-    if (raw) return JSON.parse(raw)
+    const raw = readRaw()
+    if (raw) {
+      const parsed = JSON.parse(raw)
+      if (Array.isArray(parsed)) return parsed
+    }
   } catch {
     // corrupted storage falls through to seed data
   }
@@ -48,7 +80,7 @@ export function loadEntries() {
 }
 
 export function saveEntries(entries) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(entries))
+  writeRaw(JSON.stringify(entries))
 }
 
 export function resetToSample() {

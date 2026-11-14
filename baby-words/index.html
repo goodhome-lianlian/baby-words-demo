@@ -6,8 +6,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#fff4e8" />
     <title>寶寶字典｜記錄寶寶學會的每一個字</title>
+    <style>
+      #fallback {
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 20px 16px 40px;
+        font-family: -apple-system, 'PingFang TC', 'Noto Sans TC', 'Microsoft JhengHei', sans-serif;
+        color: #5a3e36;
+        background: #fff4e8;
+        line-height: 1.6;
+      }
+      #fallback .fb-hero {
+        background: #ffc4a8;
+        border-radius: 24px;
+        padding: 18px 20px;
+        color: #fff;
+        text-align: center;
+      }
+      #fallback .fb-hero h1 { margin: 4px 0 0; font-size: 26px; }
+      #fallback .fb-hero p { margin: 0; font-size: 14px; }
+      #fallback .fb-notice {
+        margin-top: 16px;
+        background: #fff;
+        border: 3px solid #ff9f80;
+        border-radius: 20px;
+        padding: 16px 18px;
+        font-size: 16px;
+      }
+      #fallback .fb-notice h2 { margin: 0 0 8px; font-size: 18px; color: #e0603c; }
+      #fallback .fb-notice ol { margin: 8px 0 0; padding-left: 22px; }
+      #fallback .fb-error { margin-top: 10px; font-size: 13px; color: #a08377; word-break: break-all; }
+      #fallback .fb-preview { margin-top: 16px; background: #fff; border-radius: 20px; padding: 14px 18px; }
+      #fallback .fb-preview h3 { margin: 0 0 8px; font-size: 15px; }
+      #fallback .fb-preview li { margin: 4px 0; }
+      #fallback .fb-preview b { color: #e0603c; }
+    </style>
+    <script>
+      window.onerror = function (message) {
+        var fallback = document.getElementById('fallback');
+        var detail = document.getElementById('fallback-error');
+        if (fallback) fallback.style.display = '';
+        if (detail) {
+          detail.textContent = '錯誤訊息：' + message;
+          detail.style.display = '';
+        }
+      };
+    </script>
   </head>
   <body>
+    <div id="fallback">
+      <div class="fb-hero">
+        <div style="font-size: 44px">👶</div>
+        <h1>寶寶字典</h1>
+        <p>記錄寶寶說出的每一個第一次</p>
+      </div>
+      <div class="fb-notice">
+        <h2>⚠️ 這個檔案需要在瀏覽器中開啟</h2>
+        <p>
+          這是一個互動式網頁 App，需要瀏覽器執行 JavaScript 才能使用。
+          <b>iPhone / iPad 的「檔案」App 預覽（Quick Look）、郵件或聊天軟體的預覽畫面無法執行它</b>，
+          所以只會看到這段說明或空白畫面。
+        </p>
+        <p><b>請改用電腦開啟：</b></p>
+        <ol>
+          <li>把 <code>baby-words-demo.html</code> 傳到電腦（Mac 或 Windows）。</li>
+          <li>用 Chrome、Safari 或 Edge 開啟（直接拖進瀏覽器視窗，或按兩下檔案）。</li>
+          <li>資料會儲存在該瀏覽器中。</li>
+        </ol>
+        <p id="fallback-error" class="fb-error" style="display: none"></p>
+      </div>
+      <div class="fb-preview">
+        <h3>📖 App 內容預覽（範例資料）</h3>
+        <ul>
+          <li><b>媽媽</b>：寶寶說「ㄇㄚ ㄇㄚ」</li>
+          <li><b>爸爸</b>：寶寶說「把把」</li>
+          <li><b>抱抱</b>：伸出雙手要人抱</li>
+          <li><b>狗狗</b>：在公園看到柴犬</li>
+          <li><b>再見</b>：寶寶說「掰掰」</li>
+        </ul>
+        <p>功能：新增字詞（日期、字詞、寶寶的唸法、情境筆記）、依日期的時間軸、每月統計，以及 10／50／100 字里程碑慶祝動畫 🎉</p>
+      </div>
+    </div>
+    <noscript>
+      <p style="text-align: center; color: #e0603c; font-weight: bold">
+        此瀏覽器未啟用 JavaScript，請在電腦上用 Chrome、Safari 或 Edge 開啟此檔案。
+      </p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
